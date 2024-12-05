@@ -1,9 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
-import Login from './components/Login';
+import LoginPage from './components/LoginPage';
 import Register from './components/Register'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProductForm from './components/ProductForm';
 
 
 function App() {
@@ -11,8 +12,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Register/>} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/registration" element={<Register/>} />
+          <Route path="/product" element={<ProductForm/>} />
         </Routes>
       </BrowserRouter>
 

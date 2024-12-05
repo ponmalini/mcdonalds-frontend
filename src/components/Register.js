@@ -18,7 +18,7 @@ function Register() {
         setErrorMessage("");
 
         try {
-            const res = await axios.post("http://localhost:3001/SignUp", details);
+            const res = await axios.post("http://localhost:3001/register/SignUp", details);
 
             console.log("Response:", res.data);
             alert("Registration successful");
@@ -44,17 +44,20 @@ function Register() {
             }
         }
     };
-
+   
     return (
         <div className="container mt-5">
-            <h2 className="mb-4">Register</h2>
+            <div class="col-12">
+              <label class="fw-bolder fs-1">Create Account</label>
+              <p class="text-warning fw-medium mb-5">Looks like you're new here!</p>
+            </div>
             {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="row mb-3">
-                    <label for="inputName" className="col-sm-2 col-form-label ">
+                    <label for="inputName" className="col-sm-4 col-form-label ">
                         Name
                     </label>
-                    <div className="col-sm-5">
+                    <div className="col-sm-8">
                         <input
                             type="text"
                             className="form-control"
@@ -66,10 +69,10 @@ function Register() {
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label For="inputEmail" className="col-sm-2 col-form-label ">
+                    <label For="inputEmail" className="col-sm-4 col-form-label ">
                         Email
                     </label>
-                    <div className="col-sm-5">
+                    <div className="col-sm-8">
                         <input
                             type="email"
                             className="form-control"
@@ -82,10 +85,10 @@ function Register() {
                 </div>
 
                 <div className="row mb-3">
-                    <label For="inputMobileNumber" className="col-sm-2 col-form-label">
+                    <label For="inputMobileNumber" className="col-sm-4 col-form-label">
                         Mobile Number
                     </label>
-                    <div className="col-sm-5">
+                    <div className="col-sm-8">
                         <input
                             type="text"
                             className="form-control"
@@ -99,6 +102,8 @@ function Register() {
                 <button type="submit" className="btn btn-primary" disabled={loading}>
                     {loading ? "Registering..." : "Register"}
                 </button>
+               
+                
             </form>
         </div>
     );
