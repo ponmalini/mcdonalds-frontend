@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import LoginLayout from "../Layout/LoginLayout";
 
 function Register() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Register() {
         setErrorMessage("");
 
         try {
-            const res = await axios.post("http://localhost:3001/register/SignUp", details);
+            const res = await axios.post("http://localhost:3001/account/SignUp", details);
 
             console.log("Response:", res.data);
             alert("Registration successful");
@@ -46,15 +47,16 @@ function Register() {
     };
    
     return (
+        <LoginLayout>
         <div className="container mt-5">
-            <div class="col-12">
-              <label class="fw-bolder fs-1">Create Account</label>
-              <p class="text-warning fw-medium mb-5">Looks like you're new here!</p>
+            <div className="col-12">
+              <label className="fw-bolder fs-1">Create Account</label>
+              <p className="text-warning fw-medium mb-5">Looks like you're new here!</p>
             </div>
             {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="row mb-3">
-                    <label for="inputName" className="col-sm-4 col-form-label ">
+                    <label htmlFor="inputName" className="col-sm-4 col-form-label ">
                         Name
                     </label>
                     <div className="col-sm-8">
@@ -69,7 +71,7 @@ function Register() {
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label For="inputEmail" className="col-sm-4 col-form-label ">
+                    <label htmlFor="inputEmail" className="col-sm-4 col-form-label ">
                         Email
                     </label>
                     <div className="col-sm-8">
@@ -85,7 +87,7 @@ function Register() {
                 </div>
 
                 <div className="row mb-3">
-                    <label For="inputMobileNumber" className="col-sm-4 col-form-label">
+                    <label htmlFor="inputMobileNumber" className="col-sm-4 col-form-label">
                         Mobile Number
                     </label>
                     <div className="col-sm-8">
@@ -99,13 +101,15 @@ function Register() {
                         />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary" disabled={loading}>
+                <button type="submit" className="btn btn-warning" disabled={loading}>
                     {loading ? "Registering..." : "Register"}
                 </button>
                
                 
             </form>
+            Existing customer?<button type="button" class="btn btn-link" onClick={() => navigate('/Login')}>Sign In</button>
         </div>
+        </LoginLayout>
     );
 }
 

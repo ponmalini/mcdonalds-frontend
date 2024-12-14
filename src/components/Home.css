@@ -1,0 +1,23 @@
+.w-125{
+    width: 100%; 
+}
+.bg-black{
+    background-color: black;
+    height: 30px;
+}
+.card-main-heading{
+    background-color: #faebd745 !important;
+    
+}
+.fs-3rem{
+    font-size: 3rem;
+}
+.bg-white{
+    background-color: white;
+}
+/* .row{
+
+    margin-left: 15rem !important;
+    background-color: white;
+} */
+ 
