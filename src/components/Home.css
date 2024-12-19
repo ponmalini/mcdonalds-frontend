@@ -15,9 +15,21 @@
 .bg-white{
     background-color: white;
 }
+.pointer
+{
+    cursor: pointer;
+}
 /* .row{
 
     margin-left: 15rem !important;
     background-color: white;
 } */
+
+
+
+@include media-breakpoint-down(md) {
+    .custom-class {
+      display: block;
+    }
+  }
  

@@ -26,11 +26,15 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      var otp=value1+value2+value3+value4;
-      const res = await axios.post('http://localhost:3001/account/Login', { mobileNumber,otp });
+      var otp = value1 + value2 + value3 + value4;
+      const res = await axios.post('http://localhost:3001/account/Login', { mobileNumber, otp });
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('userInfo',JSON.stringify(res.data.userDetails));
-      navigate('/');
+      localStorage.setItem('userInfo', JSON.stringify(res.data.userDetails));
+      if (res.data.isAdmin) {
+        navigate('/Product')
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       alert(err.response.data.message);
       console.error('Login failed', err);

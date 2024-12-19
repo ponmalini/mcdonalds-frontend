@@ -1,61 +1,61 @@
 import React, { useState, useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Navigate, useNavigate } from 'react-router-dom';
 function Layout({ children }) {
 
     const userData = localStorage.getItem('userInfo');
     const [userName, setuserName] = useState('');
     const navigate = useNavigate();
+
     useEffect(() => {
         if (userData != null && userData != undefined) {
             setuserName(JSON.parse(userData).name);
         }
+
     }, []);
 
+    const logOut = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userInfo');
+        navigate('/Login');
+    }
 
     const handleClick = () => {
-        alert('Button clicked!'); // Replace this with your desired action
+        alert('App download success!'); // Replace this with your desired action
     };
     return (
         <div className='card-main-heading'>
             <header>
                 <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "#f5f5f5" }}>
                     <div className="container-fluid">
-                        <a className="navbar-brand mx-5" href="#">
+                        <a className="navbar-brand mx-5" href="#" >
                             <img src="https://hrpl-production-mds-assets.s3.ap-south-1.amazonaws.com/logo/McDeliveryLogo.png" alt="" width="65" height="65" />
                         </a>
-
-                        <div className="dropdown">
-                            <button className="btn btn-danger btn-lg dropdown-toggle" type="button"> Dropdown button
-                            </button>
-                        </div>
 
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
+                        
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
                             </ul>
                             <form className="d-flex">
-                            {userData && <div>  <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" >
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {userName && <div >  <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" >
+                                    <li className="nav-item dropdown">
+                                        <a className="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             {userName}
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                                        <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                            <li><button className="dropdown-item" href="#" onClick={() => navigate('/Pf')}>Profile</button></li>
                                             {/* <li><a class="dropdown-item" href="#">Orders</a></li> */}
-                                            <li><hr class="dropdown-divider" /></li>
-                                            <li><a class="dropdown-item" href="#" onClick={() => navigate('\Login')}>LogOut</a></li>
+                                            <li><hr className="dropdown-divider" /></li>
+                                            <li><a className="dropdown-item" href="#" onClick={() => logOut()}>LogOut</a></li>
                                         </ul>
                                     </li>
                                 </ul> </div>}
-                            {!userData && <button className="btn btn-danger btn-md " type="button" onClick={() => navigate('\Login')}> Login
-                            </button>}
+                                {!userName && <button className="btn btn-primary btn-md " type="button" onClick={() => navigate('/Login')}> Login
+                                </button>}
                             </form>
-
-                           
                         </div>
                     </div>
                 </nav>
@@ -72,7 +72,7 @@ function Layout({ children }) {
                         {/* QR Code Section */}
                         <div className="col-md-6 mb-3">
                             <img
-                                src="path-to-qr-code-image"
+                                src="https://tse2.mm.bing.net/th/id/OIP.V81YaH_nGzVG4PVxpSEkoAHaFB?rs=1&pid=ImgDetMain"
                                 alt="QR Code"
                                 style={{ width: '150px' }}
                             />

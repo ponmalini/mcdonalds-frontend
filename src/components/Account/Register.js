@@ -107,7 +107,7 @@ function Register() {
                
                 
             </form>
-            Existing customer?<button type="button" class="btn btn-link" onClick={() => navigate('/Login')}>Sign In</button>
+            Existing customer?<button type="button" className="btn btn-link" onClick={() => navigate('/Login')}>Sign In</button>
         </div>
         </LoginLayout>
     );
