@@ -1,0 +1,132 @@
+.mydiv{
+	text-align: center;
+	background: #fefaf4;
+}
+.h1 {
+	color: #88B04B;
+	font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+	font-weight: 900;
+	font-size: 40px;
+	margin-bottom: 10px;
+  }
+  .p {
+	color: #404F5E;
+	font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+	font-size:20px;
+	margin: 0;
+  }
+.i {
+  color: #9ABC66;
+  font-size: 100px;
+  margin-left:-15px;
+}
+.sucess-card {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px #C8D0D8;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.tracking-info {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+:root{
+  --light-blue: #ef2222;
+  --dark-brown: #361E10;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.mcd-body {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 25vh;
+    overflow: hidden;
+}
+
+.mcd-container {
+    text-align: center;
+}
+
+
+.mcd-item-img{
+  height: 6rem;
+}
+
+.mcd-circle {
+    align-items: center;
+    display: flex;
+    height: 3rem;
+    justify-content: center;
+    transition: 0.4s ease;
+    width: 3rem;
+}
+
+.mcd-progress-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    max-width: 100vw;
+    position: relative;
+    width: 40rem;
+}
+
+.mcd-progress-container::before {
+    background-color: #cecece;
+    content: "";
+    height: 0.9rem;
+    left: 0;
+    position: absolute;
+    top: 58%;
+    transform: translateY(-50%);
+    width: 100%;
+    z-index: -1;
+}
+
+.mcd-progress {
+    background-color: #009c58;
+    height: 0.9rem;
+    left: 0;
+    position: absolute;
+    border-radius: 22px;
+    top: 58%;
+    transform: translateY(-50%);
+    transition: 0.4s ease;
+    width: 0%;
+    z-index: -1;
+  animation: progress-forward 4s;
+  animation-fill-mode: forwards;
+}
+
+
+
+@keyframes progress-forward {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    width: 100%;
+  }
+}

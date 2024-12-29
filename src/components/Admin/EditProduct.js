@@ -1,7 +1,8 @@
-import React, { useState,useEffect } from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Layout from '../Layout/Layout';
+import Swal from 'sweetalert2';
 
 const EditProduct = () => {
   const options = [
@@ -22,14 +23,14 @@ const EditProduct = () => {
   const [amount, setAmount] = useState('');
   const [imageurl, setImageUrl] = useState('');
 
-  const {id}=useParams()
+  const { id } = useParams()
   const navigate = useNavigate()
 
-  useEffect(()=>{
-    if(id){
-    axios.get(`http://localhost:3001/product/getItem/${id}`)
-      .then(Response =>{
-          const product =Response.data;
+  useEffect(() => {
+    if (id) {
+      axios.get(`http://localhost:3001/product/getItem/${id}`)
+        .then(Response => {
+          const product = Response.data;
           setId(product._id)
           setCategory(product.category)
           setProductName(product.productName)
@@ -37,15 +38,15 @@ const EditProduct = () => {
           setIsVeg(product.isVeg)
           setAmount(product.amount)
           setImageUrl(product.imageUrl)
-      })
-      .catch(error=>{
-          console.error('Error fetching user data:',error.Response?error.Response.data : error.message)
-      })
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error.Response ? error.Response.data : error.message)
+        })
 
-  }else{
+    } else {
       console.error("id is not available")
-  }
-},[id]);
+    }
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,13 +66,17 @@ const EditProduct = () => {
         isVeg,
         amount,
         imageUrl: imageurl,
-        _id:_id
+        _id: _id
       };
 
       // Submit the product data
       const productRes = await axios.put('http://localhost:3001/product/updateItem', productData);
       console.log('Response:', productRes.data);
-      alert('Product registered successfully!');
+      Swal.fire({
+        icon: 'success',
+        title: 'Product register successfully',
+        confirmButtonText: 'OK'
+      });
       navigate('/Product')
     } catch (err) {
       console.error('Error:', err);
@@ -85,7 +90,7 @@ const EditProduct = () => {
 
   return (
     <Layout>
-    <div>
+      <div>
         <div className="container mt-5">
           <h2>Edit Product</h2>
           <form onSubmit={handleSubmit}>
@@ -181,17 +186,17 @@ const EditProduct = () => {
             </div>
             <div className="row mb-3 mt-5">
               <div className="col-sm-10 offset-sm-2">
-              <button type="submit" className="btn btn-warning">
+                <button type="submit" className="btn btn-warning">
                   Update
                 </button>
-                <button type="button" className="btn btn-secondary m-4" onClick={()=>navigate('/Product')}>
+                <button type="button" className="btn btn-secondary m-4" onClick={() => navigate('/Product')}>
                   Cancel
                 </button>
               </div>
             </div>
           </form>
         </div>
-    </div>
+      </div>
     </Layout>
   );
 };

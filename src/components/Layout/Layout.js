@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 function Layout({ children }) {
 
     const userData = localStorage.getItem('userInfo');
@@ -20,7 +21,11 @@ function Layout({ children }) {
     }
 
     const handleClick = () => {
-        alert('App download success!'); // Replace this with your desired action
+        Swal.fire({
+            icon: 'success',
+            title: 'App Download Success',
+            confirmButtonText: 'OK'
+        }); // Replace this with your desired action
     };
     return (
         <div className='card-main-heading'>
@@ -34,7 +39,7 @@ function Layout({ children }) {
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        
+
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -55,6 +60,7 @@ function Layout({ children }) {
                                 </ul> </div>}
                                 {!userName && <button className="btn btn-primary btn-md " type="button" onClick={() => navigate('/Login')}> Login
                                 </button>}
+
                             </form>
                         </div>
                     </div>

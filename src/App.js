@@ -10,6 +10,8 @@ import Register from './components/Account/Register';
 import Pf from './components/Pf';
 import EditProduct from './components/Admin/EditProduct';
 import CheckOut from './components/CheckOut';
+import Delivery from './components/Delivery';
+import Order from './components/Order';
 
 
 
@@ -24,7 +26,11 @@ function App() {
           <Route path="/product" element={<Product/>} />    
           <Route path="/Pf" element={<Pf/>} />
           <Route path="/editProduct/:id" element={<EditProduct/>}></Route>
-          <Route path="/CheckOut" element={<CheckOut/>} />
+          <Route path="/CheckOut" element={<CheckOut/>}></Route>
+          <Route path="/Delivery" element={<Delivery/>}></Route>
+          <Route path="/Order" element={<Order/>}></Route>
+         
+         
           </Routes>
       </BrowserRouter>
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Layout from './Layout/Layout'
 import './Home.css';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 function Home() {
@@ -32,20 +33,32 @@ function Home() {
   const Addtocart = (productName, amount,imageUrl) => {
     const mobileNumber = JSON.parse(localStorage.getItem('userInfo'))?.mobileNumber;
     if (mobileNumber == undefined) {
-      alert('Please Login to add item')
+      Swal.fire({
+        icon: 'warning',
+        title: 'Please Login to add item',
+        confirmButtonText: 'OK'
+      })
       return;
     }
     const cart = {
-      productName, amount, mobileNumber, quantity: 1,imageUrl
+      productName, amount, mobileNumber, quantity: 1,imageUrl,orderConfirmed:false
     };
     axios.post('http://localhost:3001/cart/addCart', cart)
       .then((response) => {
-        alert('Item added to cart')
+        Swal.fire({
+          icon: 'success',
+          title: 'Item added to cart',
+          confirmButtonText: 'OK'
+        });
         getCarts();
       })
       .catch((err) => {
         console.error('Error fetching data:', err);
-        alert('Failed to add cart');
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to add item to cart',
+          confirmButtonText: 'OK'
+        });
       });
 
   }
@@ -66,7 +79,11 @@ function Home() {
         })
         .catch((err) => {
           console.error('Error fetching data:', err);
-          alert('Failed to fetch cards');
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to fetch carts',
+            confirmButtonText: 'OK'
+          });
         });
     }
   };
@@ -77,12 +94,20 @@ function Home() {
       axios
         .delete(`http://localhost:3001/cart/deleteCart/${id}`)
         .then(() => {
-          alert('Deleted successfully');
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted successfully',
+            confirmButtonText: 'OK'
+          });
           getCarts();
         })
         .catch((error) => {
           console.error('Error deleting card:', error);
-          alert('Failed to delete card');
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to delete item',
+            confirmButtonText: 'OK'
+          });
         });
     }
   }
@@ -96,7 +121,11 @@ function Home() {
       })
       .catch((err) => {
         console.error('Error fetching data:', err);
-        alert('Failed to fetch cards');
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to fetch products',
+          confirmButtonText: 'OK'
+        });
       });
   };
   return (
@@ -125,7 +154,7 @@ function Home() {
         <div className="card-main-heading shadow p-3 mb-5 bg-body rounded">
           <h2 className="card-title">  <label className="fw-bolder fs-3rem  m-3">Our Menu</label></h2>
           <div className="col-sm-11 text-end">
-                    <button type="button" class="btn btn-warning btn-lg position-relative" onClick={() => navigate('/CheckOut')}>
+                    <button type="button" className="btn btn-warning btn-lg position-relative" onClick={() => navigate('/checkout')}>
                       Cart
                       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                       {cartData.length}
@@ -139,57 +168,57 @@ function Home() {
           </div> */}
 
         <div className="row mb-5">
-          <div className="col-2 d-none d-md-block  px-8 bg-white shadow " style={{ textAlign: 'left' }}>
+          <div className="col-2 d-none d-md-block fs-6 px-8 bg-white shadow h-100 mt-3 " style={{ textAlign: 'left' }}>
             <div className='row pointer px-3' onClick={() => setCategory(options[0])}>
               <ul className="list-inline">
                 <li className="list-inline-item"><img src='https://c38blhej2h.execute-api.ap-south-1.amazonaws.com/dev/png/90/20240918043600447449.png' height={'45'} width={'45'} /></li>
-                <li className={(category == options[0] ? "fw-bold " : "") + "list-inline-item "}>Newly <br />Launched</li>
+                <li className={(category == options[0] ? "fw-bold " : "") + "list-inline-item align-bottom m-1"}>Newly <br />Launched</li>
               </ul>
             </div>
             <div className='row pointer px-3' onClick={() => { setCategory(options[1]) }}>
               <ul className="list-inline">
                 <li className="list-inline-item"><img src='https://c38blhej2h.execute-api.ap-south-1.amazonaws.com/dev/png/90/1709551887533338.png' height={'45'} width={'45'} /></li>
-                <li className={(category == options[1] ? "fw-bold " : "") + "list-inline-item "}>Group Sharing <br /> Combos</li>
+                <li className={(category == options[1] ? "fw-bold " : "") + "list-inline-item align-bottom m-1"}>Group Sharing <br /> Combos</li>
               </ul>
             </div>
             <div className='row pointer px-3' onClick={() => setCategory(options[2])}>
               <ul className="list-inline">
                 <li className="list-inline-item"><img src='https://d37byfojjwz7vp.cloudfront.net/new_resize_90_1709551865208239.png' height={'45'} width={'45'} /></li>
-                <li className={(category == options[2] ? "fw-bold " : "") + "list-inline-item "}>Mc Saver Combo <br />(2meals)</li>
+                <li className={(category == options[2] ? "fw-bold " : "") + "list-inline-item align-bottom m-1"}>Mc Saver Combo <br />(2meals)</li>
               </ul>
             </div>
             <div className='row pointer px-3' onClick={() => setCategory(options[3])}>
               <ul className="list-inline">
                 <li className="list-inline-item"><img src='https://d37byfojjwz7vp.cloudfront.net/new_resize_456_20241209143014535634.png' height={'45'} width={'45'} /></li>
-                <li className={(category == options[3] ? "fw-bold " : "") + "list-inline-item "}>Burger Combos <br />(3pc meals)</li>
+                <li className={(category == options[3] ? "fw-bold " : "") + "list-inline-item align-bottom m-1"}>Burger Combos <br />(3pc meals)</li>
               </ul>
             </div>
             <div className='row pointer px-3' onClick={() => setCategory(options[4])}>
               <ul className="list-inline">
                 <li className="list-inline-item"><img src='https://d37byfojjwz7vp.cloudfront.net/new_resize_90_170955171681248.png' height={'45'} width={'45'} /></li>
-                <li className={(category == options[4] ? "fw-bold " : "") + "list-inline-item "}>Burgers & <br />Wrapes</li>
+                <li className={(category == options[4] ? "fw-bold " : "") + "list-inline-item align-bottom m-1"}>Burgers & <br />Wrapes</li>
               </ul>
             </div>
             <div className='row pointer px-3' onClick={() => setCategory(options[5])}>
               <ul className="list-inline">
                 <li className="list-inline-item"><img src='https://d37byfojjwz7vp.cloudfront.net/new_resize_90_1709551827742126.png' height={'45'} width={'45'} /></li>
-                <li className={(category == options[5] ? "fw-bold " : "") + "list-inline-item "}>Fries & <br />Sides</li>
+                <li className={(category == options[5] ? "fw-bold " : "") + "list-inline-item align-bottom m-1"}>Fries & <br />Sides</li>
               </ul>
             </div>
             <div className='row pointer px-3' onClick={() => setCategory(options[6])}>
               <ul className="list-inline">
-                <li className="list-inline-item"><img src='https://d37byfojjwz7vp.cloudfront.net/new_resize_90_1709551827742126.png' height={'45'} width={'45'} /></li>
-                <li className={(category == options[6] ? "fw-bold " : "") + "list-inline-item "}>Coffee & Beverages <br /> (Hot and Cold)</li>
+                <li className="list-inline-item"><img src='https://c38blhej2h.execute-api.ap-south-1.amazonaws.com/dev/png/700/CFRMMT-1820-1-1820.png' height={'45'} width={'45'} /></li>
+                <li className={(category == options[6] ? "fw-bold " : "") + "list-inline-item align-bottom m-1"}>Coffee & Beverages <br /> (Hot and Cold)</li>
               </ul>
             </div>
             <div className='row pointer px-3' onClick={() => setCategory(options[7])}>
               <ul className="list-inline">
-                <li className="list-inline-item"><img src='https://d37byfojjwz7vp.cloudfront.net/new_resize_90_1709551827742126.png' height={'45'} width={'45'} /></li>
-                <li className={(category == options[7] ? "fw-bold " : "") + "list-inline-item "}>Desserts</li>
+                <li className="list-inline-item"><img src='https://c38blhej2h.execute-api.ap-south-1.amazonaws.com/dev/png/700/SMFLOR-4-1-4.png' height={'45'} width={'45'} /></li>
+                <li className={(category == options[7] ? "fw-bold " : "") + "list-inline-item align-bottom m-1"}>Desserts</li>
               </ul>
             </div>
           </div>
-          <div className="col-12 col-sm-12 col-md-10 col-lg-7 ">
+          <div className="col-12 col-sm-12 col-md-12 col-lg-7">
             <div className="container">
               <div className="row ">
                 <div className="row d-block d-md-none">
@@ -208,12 +237,12 @@ function Home() {
                 </div>
                 {productData.filter(e => e.category == category).map((product) => (
                   <div className="col-12 col-sm-12 col-md-6 col-lg-6  mt-3  ">
-                    <div className="card h-100 shadow">
+                    <div className="card h-70 shadow" >
                       <div className='text-end mx-2'><img src={product.isVeg ? 'https://hrpl-production-mds-assets.s3.ap-south-1.amazonaws.com/icons/veg.svg' : 'https://hrpl-production-mds-assets.s3.ap-south-1.amazonaws.com/icons/nonveg.svg'} style={{ width: '1rem' }} /> </div>
-                      <img src={product.imageUrl} className="card-img-top" />
+                      <img src={product.imageUrl} className="card-img-top"style={{width:"288px",height:"30vh  ",margin:"auto"}} />
                       <div className="card-body">
-                        <h5 className="card-title">{product.productName}</h5>
-                        <p className="card-text">{product.description}</p>
+                        <h5 className="card-title fw-bold">{product.productName}</h5>
+                        <p className="card-text fs-6 text-truncate">{product.description}</p>
                       </div>
                       <p className="card-text fw-bold">Rs. {product.amount}</p>
                       <button className="btn btn-warning d-grid gap-2 col-6 mx-auto fw-bold m-2" type="Add" onClick={() => Addtocart(product.productName, product.amount,product.imageUrl)}>Add +</button>
@@ -228,7 +257,7 @@ function Home() {
 
           <div style={{ width: '25%' }} className='fw-bold d-none d-md-block'>
 
-            <div className="bg-white shadow rounded-3 m-4" style={{ minHeight: '50%', padding: '2px' }}>
+            <div className="bg-white shadow rounded-3 m-4" style={{ minHeight: '30%', padding: '2px' }}>
               <h4> Your Cart</h4>
               {cartData.length == 0 &&
                 <div> <img src="https://hrpl-production-mds-assets.s3.ap-south-1.amazonaws.com/icons/empty-cart.svg" style={{ marginTop: 'inherit' }}></img>
@@ -254,7 +283,7 @@ function Home() {
                       <div className='col-6 text-end fw-bolder fs-5'> {cartTotal}</div>
                     </div>
                   </div>
-                  <button type="button" className="btn btn-lg btn-warning w-100" onClick={() => navigate('/CheckOut')}>Payment</button>
+                  <button type="button" className="btn btn-lg btn-warning w-100" onClick={() => navigate('/CheckOut')}>Proceed to Buy</button>
                 </div>
               }
             </div>
@@ -275,15 +304,7 @@ function Home() {
             McAloo Tikki Burger to the Gourmet Burger Collection, you are spoilt for choice. Looking for a hearty Indian breakfast option? Then try our perfectly seasoned McEgg Burger served with a side of buttered buns. Combine it with a cup of the McDonald’s McCafe and it’s a match made in heaven. One of the most popular items from our Indian menu is the ‘Shake Shake Fries’. The spicy piri piri seasoning combined with some good ol’ McDonald’s Fries is a definite must-have. The hot desi spices and flavours of the McDonald’s Indian Menu creates this symphony of deliciousness in your mouth leaving you craving for more. Order your meals online from the McDelivery website or app and satisfy your cravings for all things yummy.
             <br />
             <br />
-            When McDonald’s first opened, we started with a simple menu of just burgers, fries and beverages. And after all these years, sometimes, our
-            customers want just that - a good wholesome flavour-loaded burger. So, order your McDonald’s burger online and eat it like you mean it.
-            <br />
-            <br />
-            Unlike many other food delivery websites, we at McDonalds’s have made ordering food online an experience that can be best described as -
-            easy-peasy. Here’s how you go about it- select the food you crave, next step is to take your pick from the choice of add-ons, drink, side and dessert. Then add to cart, choose mode of payment and voila, you have placed your fast-food order online and your McDonald’s food is on its way! You can also track your order as it comes to you.
-            <br />
-            <br />
-            Online food delivery is a whole new way to love McDonald’s. So, what are you waiting for? It’s McDonald’s o’clock! Order your meal now and allow us to do what we love doing - delivering happiness.</p>
+            </p>
         </div>
       </div>
     </Layout>
